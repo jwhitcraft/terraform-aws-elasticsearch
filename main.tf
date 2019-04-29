@@ -167,31 +167,6 @@ resource "aws_elasticsearch_domain" "default" {
     automated_snapshot_start_hour = var.automated_snapshot_start_hour
   }
 
-  cognito_options {
-    enabled          = var.cognito_authentication_enabled
-    user_pool_id     = var.cognito_user_pool_id
-    identity_pool_id = var.cognito_identity_pool_id
-    role_arn         = var.cognito_iam_role_arn
-  }
-
-  log_publishing_options {
-    enabled                  = var.log_publishing_index_enabled
-    log_type                 = "INDEX_SLOW_LOGS"
-    cloudwatch_log_group_arn = var.log_publishing_index_cloudwatch_log_group_arn
-  }
-
-  log_publishing_options {
-    enabled                  = var.log_publishing_search_enabled
-    log_type                 = "SEARCH_SLOW_LOGS"
-    cloudwatch_log_group_arn = var.log_publishing_search_cloudwatch_log_group_arn
-  }
-
-  log_publishing_options {
-    enabled                  = var.log_publishing_application_enabled
-    log_type                 = "ES_APPLICATION_LOGS"
-    cloudwatch_log_group_arn = var.log_publishing_application_cloudwatch_log_group_arn
-  }
-
   tags = module.label.tags
 
   depends_on = [aws_iam_service_linked_role.default]
